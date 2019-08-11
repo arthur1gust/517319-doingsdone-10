@@ -39,6 +39,21 @@ $show_complete_tasks = rand(0, 1);
 		]
 	]; 
 ?>
+<?php	
+	$x = 'Учеба';
+	function tasks_count($project_name, $array) {
+		$i = 0;
+		
+	    foreach ($array as $array_key => $array_value) { 
+			if ($array_value['category'] === $project_name) {
+				$i +=1;
+			}
+		} 
+	 return($i);
+	}
+	//$result = tasks_count($x, $tasks);
+	//print($result);
+?>
 <!DOCTYPE html>
 <html lang="ru">
 
@@ -80,7 +95,7 @@ $show_complete_tasks = rand(0, 1);
 					<?php foreach ($categories as $category_value): ?>
                         <li class="main-navigation__list-item">
 							<a class="main-navigation__list-item-link" href="#=<?=$category_value;?>"><?= $category_value; ?></a>
-                            <span class="main-navigation__list-item-count">0</span>
+                            <span class="main-navigation__list-item-count"><?= tasks_count($categories, $tasks); ?></span>
                         </li>
 						<?php 
 							endforeach; 
