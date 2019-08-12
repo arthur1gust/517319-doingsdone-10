@@ -1,11 +1,9 @@
 <?php
 // показывать или нет выполненные задачи
-$show_complete_tasks = rand(0, 1);
-?>
-<?php 
+	$show_complete_tasks = rand(0, 1);
+
 	$categories = ["Входящие","Учеба","Работа","Домашние дела","Авто"] 
-?>
-<?php
+
 	$tasks = [
 		['name' => 'Собеседование в IT компании', 
 		 'date' => '01.12.2018', 
@@ -38,21 +36,16 @@ $show_complete_tasks = rand(0, 1);
 		 'complete' => 0
 		]
 	]; 
-?>
-<?php	
-	$x = 'Учеба';
+	
 	function tasks_count($project_name, $array) {
 		$i = 0;
-		
 	    foreach ($array as $array_key => $array_value) { 
 			if ($array_value['category'] === $project_name) {
 				$i +=1;
 			}
 		} 
-	 return($i);
+	 return $i;
 	}
-	//$result = tasks_count($x, $tasks);
-	//print($result);
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -95,7 +88,7 @@ $show_complete_tasks = rand(0, 1);
 					<?php foreach ($categories as $category_value): ?>
                         <li class="main-navigation__list-item">
 							<a class="main-navigation__list-item-link" href="#=<?=$category_value;?>"><?= $category_value; ?></a>
-                            <span class="main-navigation__list-item-count"><?= tasks_count($categories, $tasks); ?></span>
+                            <span class="main-navigation__list-item-count"><?= tasks_count($category_value, $tasks); ?></span>
                         </li>
 						<?php 
 							endforeach; 
