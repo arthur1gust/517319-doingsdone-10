@@ -1,8 +1,8 @@
 <?php
 // показывать или нет выполненные задачи
 	$show_complete_tasks = rand(0, 1);
-	require_once('templates/layout.php');
-	require_once('templates/main.php');
+	$title = "Название проекта";
+
 	$categories = ["Входящие","Учеба","Работа","Домашние дела","Авто"]; 
 
 	$tasks = [
@@ -47,14 +47,13 @@
 		} 
 	 return $i;
 	}
-	
 ?>
 <!DOCTYPE html>
 <html lang="ru">
 
 <head>
     <meta charset="UTF-8">
-    <title>Дела в порядке</title>
+    <title><?= $title; ?></title>
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/flatpickr.min.css">
@@ -82,8 +81,9 @@
             </div>
         </header>
 
-      
-		
+        <div class="content">
+            <?= $content; ?>
+        </div>
     </div>
 </div>
 
@@ -145,17 +145,7 @@
         </div>
     </div>
 </footer>
-<?php 
-$page_content = include_template('main.php', ['tasks' => $tasks, 'show_complete_tasks' => $show_complete_tasks]);
 
-$layout_content = include_template('layout.php', [
-    'title' => 'Project names',
-    'categories' => $categories,
-    'content' => $page_content
-]);
-
-print($layout_content);
-?>
 <script src="flatpickr.js"></script>
 <script src="script.js"></script>
 </body>
