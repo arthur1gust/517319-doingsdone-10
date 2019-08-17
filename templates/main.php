@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+<?php 
+$show_complete_tasks = rand(0, 1);
+?>
             <section class="content__side">
                 <h2 class="content__side-heading">Проекты</h2>  
                 <nav class="main-navigation">
@@ -45,7 +47,12 @@
                 <table class="tasks">
 				<?php foreach ($tasks as $tasks_key => $tasks_value): ?>
 				<?php if ($show_complete_tasks === 1 OR $tasks_value['complete'] === 0) : ?>
-                    <tr class="tasks__item task <?php if ($tasks_value['complete'] === 1): ?> task--completed <?php endif; ?> ">
+                    <tr class="tasks__item task <?php if ($tasks_value['complete'] === 1): ?> task--completed <?php endif; 
+						$time_call = call_date($tasks_value['date']); ?>
+					<?php if ($time_call>0 && $time_call<=24): ?>
+						task--important
+					<?php endif ?>
+                            ">
                         <td class="task__select">
                             <label class="checkbox task__checkbox">
                                 <input class="checkbox__input visually-hidden task__checkbox" type="checkbox" value="1">
@@ -59,4 +66,3 @@
                     <!--показывать следующий тег <tr/>, если переменная $show_complete_tasks равна единице-->
                 </table>
             </main>
- </html>

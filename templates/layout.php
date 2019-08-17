@@ -1,59 +1,13 @@
 <?php
 // показывать или нет выполненные задачи
 	$show_complete_tasks = rand(0, 1);
-	$title = "Название проекта";
-
-	$categories = ["Входящие","Учеба","Работа","Домашние дела","Авто"]; 
-
-	$tasks = [
-		['name' => 'Собеседование в IT компании', 
-		 'date' => '01.12.2018', 
-		 'category' => 'Работа', 
-		 'complete' => 0
-		],
-		['name' => 'Выполнить тестовое задание', 
-		 'date' => '25.12.2018',
-		 'category' => 'Работа',
-		 'complete' => 0
-		],
-		['name' => 'Сделать задание первого раздела',
-		 'date' => '21.12.2018',
-		 'category' => 'Учеба',
-		 'complete' => 1
-		],
-		['name' => 'Встреча с другом',
-		 'date' => '22.12.2018',
-		 'category' => 'Входящие',
-		 'complete' => 0
-		], 
-		['name' => 'Купить корм для кота',
-		 'date' => 'no',
-		 'category' => 'Домашние дела',
-		 'complete' => 0
-		],
-		['name' => 'Заказать пиццу',
-		 'date' => 'no',
-		 'category' => 'Домашние дела',
-		 'complete' => 0
-		]
-	]; 
-	
-	function tasks_count($project_name, $array) {
-		$i = 0;
-	    foreach ($array as $array_key => $array_value) { 
-			if ($array_value['category'] === $project_name) {
-				$i +=1;
-			}
-		} 
-	 return $i;
-	}
 ?>
 <!DOCTYPE html>
 <html lang="ru">
 
 <head>
     <meta charset="UTF-8">
-    <title><?= $title; ?></title>
+    <title><?=$title; ?></title>
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/flatpickr.min.css">
