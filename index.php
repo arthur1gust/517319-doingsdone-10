@@ -6,7 +6,7 @@
 	require_once('data.php');
 	
 
-$page_content = include_template('main.php', ['tasks' => $tasks, 'categories' => $categories]);
+$page_content = include_template('main.php', ['tasks' => $tasks, 'categories' => $categories, 'show_complete_tasks' => $show_complete_tasks]);
 
 $layout_content = include_template('layout.php', [
     'title' => 'Главная страница проекта',

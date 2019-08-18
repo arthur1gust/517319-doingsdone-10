@@ -1,7 +1,4 @@
-<?php 
-$show_complete_tasks = rand(0, 1);
-?>
-            <section class="content__side">
+           <section class="content__side">
                 <h2 class="content__side-heading">Проекты</h2>  
                 <nav class="main-navigation">
                     <ul class="main-navigation__list">
@@ -47,19 +44,19 @@ $show_complete_tasks = rand(0, 1);
                 <table class="tasks">
 				<?php foreach ($tasks as $tasks_key => $tasks_value): ?>
 				<?php if ($show_complete_tasks === 1 OR $tasks_value['complete'] === 0) : ?>
-                    <tr class="tasks__item task <?php if ($tasks_value['complete'] === 1): ?> task--completed <?php endif; 
-						$time_call = call_date($tasks_value['date']); ?>
+                    <tr class="tasks__item task <?php if ($tasks_value['complete'] === 1): ?> task--completed <?php endif; ?>
+					<?php	$time_call = call_date($tasks_value['date']); ?>
 					<?php if ($time_call>0 && $time_call<=24): ?>
 						task--important
-					<?php endif ?>
-                            ">
+					<?php endif ?> ">
                         <td class="task__select">
                             <label class="checkbox task__checkbox">
                                 <input class="checkbox__input visually-hidden task__checkbox" type="checkbox" value="1">
                                 <span class="checkbox__text"><?= $tasks_value['name']; ?></span>
                             </label>
                         </td>
-                        <td class="task__date"></td>
+                        <td class="task__date"><?=$tasks_value['date']?></td>
+						<td class="task__controls"></td>
                     </tr>
 					<?php endif; ?>
 					<?php endforeach; ?>
