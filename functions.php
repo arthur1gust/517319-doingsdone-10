@@ -23,7 +23,7 @@
 };
 
 	function call_date($date_tasks) {
-	date_default_timezone_set("Europe/Moscow");
+	date_default_timezone_set("Asia/Krasnoyarsk");
 		$current_date = time();
 		$task_date = strtotime($date_tasks);
 		$hour = 3600;

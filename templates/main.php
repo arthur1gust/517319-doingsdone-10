@@ -49,7 +49,7 @@ $show_complete_tasks = rand(0, 1);
 				<?php if ($show_complete_tasks === 1 OR $tasks_value['complete'] === 0) : ?>
                     <tr class="tasks__item task <?php if ($tasks_value['complete'] === 1): ?> task--completed <?php endif; 
 						$time_call = call_date($tasks_value['date']); ?>
-					<?php if ($time_call>0 && $time_call<=24): ?>
+					<?php if ($time_call<=24): ?>
 						task--important
 					<?php endif ?>
                             ">
@@ -59,7 +59,8 @@ $show_complete_tasks = rand(0, 1);
                                 <span class="checkbox__text"><?= $tasks_value['name']; ?></span>
                             </label>
                         </td>
-                        <td class="task__date"></td>
+                        <td class="task__date"><?=$tasks_value['date']?></td>
+						<td class="task__controls"></td>
                     </tr>
 					<?php endif; ?>
 					<?php endforeach; ?>
