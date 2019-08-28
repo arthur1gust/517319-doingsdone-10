@@ -1,32 +1,42 @@
-CREATE DATABASE `Doingsdone`
-	DEFAULT CHARACTER SET utf8
-	DEFAULT COLLATE utf8_general_ci;
-USE `Doingsdone`;
+CREATE DATABASE Doingsdone
+  DEFAULT CHARACTER SET utf8
+  DEFAULT COLLATE utf8_general_ci;
 
-create table `user` (
-	`user_id` INT AUTO_INCREMENT PRIMARY KEY,
-	`registration_date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
-	`name` VARCHAR(50),
-	`email` VARCHAR(128) UNIQUE NOT NULL,
-	`password` VARCHAR(64)
+USE Doingsdone;
+
+CREATE TABLE `users` (
+	`id` int NOT NULL AUTO_INCREMENT,
+	`name` char(128 ) NOT NULL,
+	`email` char(128) NOT NULL UNIQUE,
+	`password` char(64) NOT NULL,
+	`dt_add` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	PRIMARY KEY (`id`)
 );
 
-CREATE TABLE `category` (
-	`category_id` INT AUTO_INCREMENT PRIMARY KEY,
-	`user_id` INT NOT NULL,
-	`category_name` VARCHAR(128) NOT NULL,
-  FOREIGN KEY (`user_id`) REFERENCES `user`(`user_id`)
+CREATE TABLE `tasks` (
+	`id` int NOT NULL AUTO_INCREMENT,
+	`user_id` int NOT NULL,
+	`project_id` int NOT NULL,
+	`name_task` char(128) NOT NULL,
+	`dt_create` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	`dt_doing` DATE,
+	`status` tinyint(1) NOT NULL,
+	`path` char(255),
+	`dt_term` DATETIME,
+	FULLTEXT (name_task),
+	PRIMARY KEY (`id`)
 );
 
-CREATE TABLE `task` (
-	`task_id` int AUTO_INCREMENT PRIMARY KEY,
-	`category_id` INT NOT NULL,
-	`creation_date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
-	`complete_date` DATETIME,
-	`task_status` TINYINT DEFAULT '0',
-	`task_name` VARCHAR(200) NOT NULL,
-	`file_atach` VARCHAR(200),
-	`deadline` DATETIME,
-	FOREIGN KEY (`category_id`) REFERENCES `category` (`category_id`),
-	FULLTEXT INDEX task_ft_search ON task(task_name);
+CREATE TABLE `projects` (
+	`id` int NOT NULL AUTO_INCREMENT,
+	`user_id` int NOT NULL,
+	`title` char(128) NOT NULL,
+	PRIMARY KEY (`id`)
 );
+
+ALTER TABLE `tasks` ADD CONSTRAINT `tasks_0` FOREIGN KEY (`user_id`) REFERENCES `users`(`id`);
+
+ALTER TABLE `tasks` ADD CONSTRAINT `tasks_1` FOREIGN KEY (`project_id`) REFERENCES `projects`(`id`);
+
+ALTER TABLE `projects` ADD CONSTRAINT `projects_0` FOREIGN KEY (`user_id`) REFERENCES `users`(`id`);
+
