@@ -10,16 +10,15 @@
 if (!$link) {
     $error = mysqli_connect_error();
     $content = include_template('error.php', ['error' => $error]);
-	
 }
 else {
 	// Получаем список проектов
-	$sql = 'select `id`, `title` FROM projects';
+	$sql_projects = 'select `id`, `title` FROM projects';
 
 	//Выполняем запрос
-	$result = mysqli_query($link, $sql);
+	$result = mysqli_query($link, $sql_projects);
 	
-	if (!$result) {
+	if ($result) {
 		$categories = mysqli_fetch_all($result, MYSQLI_ASSOC);	
 	}
 	else {

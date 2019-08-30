@@ -1,7 +1,7 @@
 <?php
 $db = [
-    'host' => '127.0.0.1',
+    'host' => 'localhost',
     'database' => 'Doingsdone',
     'user' => 'root',
-    'password' => '',
+    'password' => '1',
 ];
