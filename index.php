@@ -26,7 +26,7 @@ else {
 		$content = include_template('error.php', ['error' => $error]);
 	}
 	
-	$sql_task = 'select distinct `id`, `name_task` FROM tasks ';
+	$sql_task = 'select distinct `id`, `name_task` FROM tasks where user_id = 1 ';
 	$result_task = mysqli_query($link, $sql_task);
 	
 	if ($result_task) {
