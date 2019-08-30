@@ -1,7 +1,7 @@
 <?php
-$db = [
+return [
     'host' => 'localhost',
     'database' => 'Doingsdone',
     'user' => 'root',
-    'password' => '1',
+    'password' => '',
 ];

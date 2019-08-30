@@ -7,7 +7,7 @@ $show_complete_tasks = rand(0, 1);
                     <ul class="main-navigation__list">
 					<?php foreach ($categories as $category_value): ?>
                         <li class="main-navigation__list-item">
-							<a class="main-navigation__list-item-link" href="#=<?=$category_value;?>"><?= $category_value; ?></a>
+							<a class="main-navigation__list-item-link" href="#=<?=$category_value;?>"><?= $category_value['title']; ?></a>
                             <span class="main-navigation__list-item-count"><?= tasks_count($category_value, $tasks); ?></span>
                         </li>
 						<?php 
