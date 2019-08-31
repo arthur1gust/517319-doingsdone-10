@@ -6,11 +6,34 @@
 	require_once('data.php');
 	require_once('init.php');
 	
-	
+
+
 if (!$link) {
     $error = mysqli_connect_error();
     $content = include_template('error.php', ['error' => $error]);
 }
+
+if (isset($_GET['id'])) {
+    $projects_id = $_GET['id'];
+}
+
+
+$sql ="SELECT  dt_doing, name_task, status, project_id FROM tasks
+        JOIN projects ON tasks.project_id = projects.id WHERE projects.id=$projects_id";
+		
+//$result = mysqli_query($link, $sql);
+if ($result = mysqli_query($link, $sql)) {
+    $tasks = mysqli_fetch_all($result, MYSQLI_ASSOC);
+}
+$sql_projects ="SELECT id=$projects_id, title FROM projects";
+
+if ($sql_projects===0 or count($tasks)===0){
+    print("answer server 404");
+ }
+
+
+
+/*
 else {
 	// Получаем список проектов
 	$sql_projects = 'select distinct `id`, `title` FROM projects where user_id = 1';
@@ -37,8 +60,8 @@ else {
 		$content = include_template('error.php', ['error' => $error]);
 	}
 }
-	
-
+*/
+else {
 $page_content = include_template('main.php', ['tasks' => $tasks, 'categories' => $categories]);
 
 $layout_content = include_template('layout.php', [
@@ -47,5 +70,6 @@ $layout_content = include_template('layout.php', [
 ]);
 
 print($layout_content);
+}
 ?>
 
