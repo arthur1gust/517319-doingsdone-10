@@ -1,6 +1,6 @@
 <?php
-$db = [
-    'host' => '127.0.0.1',
+return [
+    'host' => 'localhost',
     'database' => 'Doingsdone',
     'user' => 'root',
     'password' => '',

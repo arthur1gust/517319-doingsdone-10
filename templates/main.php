@@ -7,7 +7,7 @@ $show_complete_tasks = rand(0, 1);
                     <ul class="main-navigation__list">
 					<?php foreach ($categories as $category_value): ?>
                         <li class="main-navigation__list-item">
-							<a class="main-navigation__list-item-link" href="#=<?=$category_value;?>"><?= $category_value; ?></a>
+							<a class="main-navigation__list-item-link" href="#=<?=$category_value;?>"><?= $category_value['title']; ?></a>
                             <span class="main-navigation__list-item-count"><?= tasks_count($category_value, $tasks); ?></span>
                         </li>
 						<?php 
@@ -56,7 +56,7 @@ $show_complete_tasks = rand(0, 1);
                         <td class="task__select">
                             <label class="checkbox task__checkbox">
                                 <input class="checkbox__input visually-hidden task__checkbox" type="checkbox" value="1">
-                                <span class="checkbox__text"><?= $tasks_value['name']; ?></span>
+                                <span class="checkbox__text"><?= $tasks_value['name_task']; ?></span>
                             </label>
                         </td>
                         <td class="task__date"><?=$tasks_value['date']?></td>
