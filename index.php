@@ -25,9 +25,10 @@ $sql ="SELECT  dt_doing, name_task, status, project_id FROM tasks
 if ($result = mysqli_query($link, $sql)) {
     $tasks = mysqli_fetch_all($result, MYSQLI_ASSOC);
 }
-$sql_projects ="SELECT id=$projects_id, title FROM projects";
+//$sql_projects ="SELECT id=$projects_id, title FROM projects";
+$sql_projects ="SELECT id, title FROM projects WHERE id=$projects_id";
 
-if ($sql_projects===0 or count($tasks)===0){
+if (($sql_projects)===false or count($tasks)===0){
     print("answer server 404");
  }
 
@@ -36,10 +37,10 @@ if ($sql_projects===0 or count($tasks)===0){
 /*
 else {
 	// Получаем список проектов
-	$sql_projects = 'select distinct `id`, `title` FROM projects where user_id = 1';
+	//$sql_projects = 'select distinct `id`, `title` FROM projects where user_id = 1';
 
 	//Выполняем запрос
-	$result = mysqli_query($link, $sql_projects);
+	//$result = mysqli_query($link, $sql_projects);
 	
 	if ($result) {
 		$categories = mysqli_fetch_all($result, MYSQLI_ASSOC);	
@@ -62,7 +63,7 @@ else {
 }
 */
 else {
-$page_content = include_template('main.php', ['tasks' => $tasks, 'categories' => $categories]);
+$page_content = include_template('main.php', ['tasks' => $tasks, 'categories' => $categories, 'projects_id' => $projects_id]);
 
 $layout_content = include_template('layout.php', [
     'title' => 'Главная страница проекта',
