@@ -1,8 +1,8 @@
 <?php
-	function tasks_count($project_name, $array) {
+	function tasks_count($array, $project_id) {
 		$i = 0;
 	    foreach ($array as $array_key => $array_value) { 
-			if ($array_value['category'] === $project_name) {
+			if ($array_value['project_id'] === $project_id) {
 				$i +=1;
 			}
 		} 

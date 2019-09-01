@@ -7,12 +7,12 @@ $show_complete_tasks = rand(0, 1);
                     <ul class="main-navigation__list">
 					<?php foreach ($categories as $category_value): ?>
                         <li class="main-navigation__list-item  
-						<?php if ($value["id"]===$projects_id): ;?>
+						<?php if ($category_value["id"]===$projects_id): ;?>
 						main-navigation__list-item--active
 						<?php endif ?>">
-							<a class="main-navigation__list-item-link" href="/?id=<?=$value["id"]; ?>">
-							<?=($value["title"]); ?></a>
-                            <span class="main-navigation__list-item-count"><?=tasks_count($tasks, $value["id"]); ?></span>
+							<a class="main-navigation__list-item-link" href="/?id=<?=$category_value["id"]; ?>">
+							<?=($category_value["title"]); ?></a>
+                            <span class="main-navigation__list-item-count"><?=tasks_count($tasks, $category_value["id"]); ?></span>
                         </li>
 						<?php 
 							endforeach; 
