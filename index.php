@@ -5,7 +5,7 @@
 	require_once('functions.php');
 	require_once('data.php');
 	require_once('init.php');
-	
+	require_once('helpers.php');
 
 
 if (!$link) {
@@ -95,7 +95,11 @@ $page_content = include_template('main.php', ['tasks' => $tasks, 'categories' =>
 
 $layout_content = include_template('layout.php', [
     'title' => 'Главная страница проекта',
-    'content' => $page_content
+    'content' => $page_content,
+	'tasks' => $tasks,
+	'categories' => $categories,
+	'projects_id' => $projects_id,
+	'menu_user' => include_template('menu_user.php'),
 ]);
 
 print($layout_content);

@@ -9,18 +9,7 @@
 	 return $i;
 	}
 	
-	function include_template($name, $data) {
-    $name = 'templates/' . $name;
-    $result = '';
-    if (!file_exists($name)) {
-        return $result;
-    }
-    ob_start();
-    extract($data);
-    require $name;
-    $result = ob_get_clean();
-    return $result;
-};
+	
 
 	function call_date($date_tasks) {
 	date_default_timezone_set("Asia/Krasnoyarsk");
@@ -32,5 +21,28 @@
 	return $time_total;
 	}
 	
+	function validationName($name) {
+    if (empty($_POST[$name])) {
+        return "Поле название задачи пустое, заполните его, пожалуйста";
+		}
+	}
 	
+	function validationProject($link, $projects_id) {
+    $sql_project ="SELECT id FROM projects WHERE id=$projects_id";
+    $res = mysqli_query($link, $sql_project);
+    if ($res==false ){
+        return "Данного проекта нет в базе данных";
+    }
+    return null;
+}
+
+	function validationDate($date) {
+    if ( date('Y-m-d', strtotime($_POST[$date])) !== $_POST[$date] and !empty($_POST[$date])
+        or date('Y-m-d', strtotime($_POST[$date]))<date('Y-m-d') and !empty($_POST[$date]) ) {
+        return "Дата не выбрана или имеет неверный формат";
+		}
+    else {
+		return null;
+	}
+}
 ?>
