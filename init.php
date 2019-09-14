@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once('functions.php');
 $db = require_once('config/db.php');
 

@@ -1,7 +1,7 @@
 <main class="content__main">
     <h2 class="content__main-heading">Добавление задачи</h2>
 
-    <formclass="form" action="add.php" method="post">
+    <form class="form" action="add.php" method="post" enctype="multiple/form-data">
         <div class="form__row">
             <label class="form__label" for="name">Название <sup>*</sup></label>
 
@@ -16,9 +16,10 @@
         <div class="form__row">
             <label class="form__label" for="project">Проект <sup>*</sup></label>
             <select class="form__input form__input--select" name="project" id="project">
-                <?php foreach ($categories as $category_value): ?>
-                    <option value="<?= $category_value['category_id']; ?>"
-                            <?php if (isset($tasks_add['project_id']) && $tasks_add['project_id'] == $category_value['category_id']): ?>selected<?php endif; ?>> <?= $category_value['category_name']; ?></option>
+                <?php foreach ($projects as $projects_value): ?>
+                    <option value="<?= $projects_value['project_id']; ?>">
+                            <?php  ?> <?= $projects_value['title']; ?></option>
+							
                 <?php endforeach; ?>
 
             </select>

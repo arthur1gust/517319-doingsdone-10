@@ -8,7 +8,7 @@ if (!$link) {
     $content = include_template('error.php', ['error' => $error]);
 }
 
-$sql = 'SELECT projects.id, projects.title, COUNT(tasks.id) FROM projects 
+$sql = 'SELECT projects.id as project_id, projects.title, COUNT(tasks.id) FROM projects 
 LEFT JOIN tasks 
 ON projects.id = tasks.project_id WHERE projects.user_id = 1 GROUP BY projects.id ';
 $result = mysqli_query($link, $sql);
@@ -26,21 +26,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $required = ['date','project','task_name'];
     $errors = [];
     $rules = [
-		'date' => function($task) {
-            return validationDate('date');
+		'date' => function($link, $task) {
+            return validationDate($task);
         },
-		'project' => function($task, $project_id_array) {
-            return validationProject($task['project_id'], $project_id_array);
+		'project' => function($link, $task) {
+            return validationProject($link, $task);
         },
-        'task_name' => function($task) {
-            return validationName('task_name');
+        'task_name' => function($link, $task) {
+            return validationName($task);
         }   
     ];
 	
 	foreach ($_POST as $key => $value) {
         if (isset($rules[$key])) {
             $form_rules = $rules[$key];
-            $errors[$key] = $form_rules();
+            $errors[$key] = $form_rules($link, $_POST);
         }
     }
 
@@ -66,11 +66,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			'errors' => $errors]);
 	} 
 	else {
-		$task = [
-		$_POST['project'],
-		
-	];
-        $sql = 'INSERT INTO tasks (user_id, project_id, name_task, dt_create, dt_doing, status) VALUES (1, ?, ?, NOW(), ?, ?)';
+		$tasks = [
+			$_POST['project'],
+			$_POST['name'],
+			$_POST['date'],
+			0,
+			$file_url
+			];
+        $sql = 'INSERT INTO tasks (user_id, project_id, name_task, dt_create, dt_doing, status, path) VALUES (1, ?, ?, NOW(), ?, ?, ?)';
         $stmt = db_get_prepare_stmt($link, $sql, $tasks);
         $res = mysqli_stmt_execute($stmt);
 		
@@ -87,13 +90,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	
 	
 
-$page_content = include_template('tasks_add.php', ['tasks' => $tasks, 'categories' => $categories, 'projects_id' => $projects_id]);
+$page_content = include_template('tasks_add.php', ['tasks' => $tasks, 'projects' => $projects, 'projects_id' => $projects_id]);
 
 $layout_content = include_template('layout.php', [
     'title' => 'Добавить задачу',
     'content' => $page_content,
 	'tasks' => $tasks,
-	'categories' => $categories,
+	'projects' => $projects,
 	'projects_id' => $projects_id,
 	'menu_user' => include_template('menu_user.php')
 ]);

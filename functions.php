@@ -27,7 +27,8 @@
 		}
 	}
 	
-	function validationProject($link, $projects_id) {
+	function validationProject($link, $task) {
+	$projects_id = $task['project'];
     $sql_project ="SELECT id FROM projects WHERE id=$projects_id";
     $res = mysqli_query($link, $sql_project);
     if ($res==false ){
@@ -36,7 +37,7 @@
     return null;
 }
 
-	function validationDate($date) {
+	function validationDate($task) {
     if ( date('Y-m-d', strtotime($_POST[$date])) !== $_POST[$date] and !empty($_POST[$date])
         or date('Y-m-d', strtotime($_POST[$date]))<date('Y-m-d') and !empty($_POST[$date]) ) {
         return "Дата не выбрана или имеет неверный формат";
@@ -44,5 +45,13 @@
     else {
 		return null;
 	}
+}
+
+	function validateEmail($link, $email) {
+    $sql_email ="SELECT * FROM users WHERE email=$email";
+    $res = mysqli_query($link, $sql_email);
+    if ($res){
+        return "Данный почтовый ящик уже существует";
+    }
 }
 ?>
