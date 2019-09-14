@@ -23,16 +23,9 @@
             </a>
 
             <div class="main-header__side">
-                <a class="main-header__side-item button button--plus open-modal" href="pages/form-task.html">Добавить задачу</a>
-
-                <div class="main-header__side-item user-menu">
-                    <div class="user-menu__data">
-                        <p>Константин</p>
-
-                        <a href="#">Выйти</a>
-                    </div>
-                </div>
+                
             </div>
+			<div class="main-header__side"><?=$menu_user; ?></div>
         </header>
 
         <div class="content">
@@ -40,7 +33,27 @@
         </div>
     </div>
 </div>
-
+<section class="content__side">
+                <h2 class="content__side-heading">Проекты</h2>  
+                <nav class="main-navigation">
+                    <ul class="main-navigation__list">
+					<?php foreach ($projects as $projects_value): ?>
+                        <li class="main-navigation__list-item  
+						<?php if ($projects_value["id"]===$projects_id): ;?>
+						main-navigation__list-item--active
+						<?php endif ?>">
+							<a class="main-navigation__list-item-link" href="/?id=<?=$category_value["id"]; ?>">
+							<?=($projects_value["title"]); ?></a>
+                            <span class="main-navigation__list-item-count"><?=tasks_count($tasks, $category_value["id"]); ?></span>
+                        </li>
+						<?php 
+							endforeach; 
+						?>
+                    </ul>
+                </nav>
+                <a class="button button--transparent button--plus content__side-button"
+                   href="pages/form-project.html" target="project_add">Добавить проект</a>
+            </section>
 <footer class="main-footer">
     <div class="container">
         <div class="main-footer__copyright">
