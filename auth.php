@@ -14,12 +14,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 	
+	$errors['email'] = filter_var($form_auth['email'], FILTER_VALIDATE_EMAIL) ? null : 'Введите корректный email';
+	/*
 	if (filter_var($form_auth['email'], FILTER_VALIDATE_EMAIL)) {
 		$errors['email'] = filter_var($form_auth['email']);
 }   else {
-		echo "E-mail адрес '$form_auth['email']' указан верно.\n";
+		$errors['email'] = "E-mail адрес '$form_auth['email']' указан верно.\n";
 }
-	
+	*/
     
     $errors = array_filter($errors);
 	

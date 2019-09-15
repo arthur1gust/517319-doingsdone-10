@@ -13,6 +13,49 @@ if (!$link) {
     $content = include_template('error.php', ['error' => $error]);
 }
 
+if (isset($_SESSION['user'])) { 
+	
+	$id_user = $_SESSION['user']['id'];
+	
+	$sql_projects = "SELECT projects.id, projects.name, COUNT(tasks.id) as tasks_count 
+		FROM projects LEFT JOIN tasks  
+		ON projects.id = tasks.project_id 
+		WHERE projects.user_id = '$id' 
+		GROUP BY projects.id";
+    $result = mysqli_query($link, $sql_projects);
+	
+	if (!$result) {
+        die(mysqli_error($link));
+    }
+	
+	$projects = mysqli_fetch_all($result, MYSQLI_ASSOC);
+	
+	if (!isset($_GET['id'])) {
+        $sql_task = "SELECT * 
+					 FROM tasks 
+					 WHERE user_id = '$id' ";
+        $res = mysqli_query($link, $sql_task);
+    }
+	else {
+        $id_user = mysqli_real_escape_string($link, $_GET['id']);
+        $sql = "SELECT * 
+				FROM tasks 
+				WHERE user_id = '$id'";
+        $res = mysqli_query($link, $sql);
+        if (!$res) {
+            die(mysqli_error($link));
+        }
+        if (!mysqli_num_rows($res)) {
+            http_send_status('404');
+			print("404");
+			die();
+        }
+    }
+
+	$user = $_SESSION['user']; //Переменные для layout
+    $user_name = $_SESSION['user']['name'];
+
+/*
 if (isset($_GET['id'])) {
     $projects_id = mysqli_real_escape_string($link, $_GET['id']);
 	
@@ -31,10 +74,9 @@ if (isset($_GET['id'])) {
 	
 }
 else {
-	$sql_task = 'select distinct `id`, `name_task` FROM tasks where user_id = 1 ';
+	$sql_task = "select distinct `id`, `name_task` FROM tasks where user_id = '$id' ";
 }
-
-
+*/
 		
 //$result = mysqli_query($link, $sql);
 if ($result = mysqli_query($link, $sql_task)) {
@@ -91,8 +133,13 @@ else {
 }
 */
 
-$page_content = include_template('main.php', ['tasks' => $tasks, 'projects' => $projects, 'projects_id' => $projects_id]);
+	
 
+$page_content = include_template('main.php', [
+	'tasks' => $tasks, 
+	'projects' => $projects, 
+	'projects_id' => $projects_id
+]);
 $layout_content = include_template('layout.php', [
     'title' => 'Главная страница проекта',
     'content' => $page_content,
@@ -100,9 +147,19 @@ $layout_content = include_template('layout.php', [
 	'projects' => $projects,
 	'projects_id' => $projects_id,
 	'menu_user' => include_template('menu_user.php'),
+	'user' => $user,
+    'user_name' => $user_name
 ]);
-
+}
+//Если пользователь не зарегистрирован
+else {
+$page_content = include_template('guest.php', []);
+$layout_content = include_template('layout.php', [
+    'title' => 'Главная страница проекта',
+    'user' => [],
+	'user_name' => '',
+	'content' => $page_content
+]);
+}
 print($layout_content);
-
 ?>
-
