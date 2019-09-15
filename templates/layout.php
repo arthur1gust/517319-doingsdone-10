@@ -43,7 +43,7 @@
 						main-navigation__list-item--active
 						<?php endif ?>">
 							<a class="main-navigation__list-item-link" href="/?id=<?=$category_value["id"]; ?>">
-							<?=($projects_value["title"]); ?></a>
+							<?=htmlspecialchars($projects_value["title"]); ?></a>
                             <span class="main-navigation__list-item-count"><?=tasks_count($tasks, $category_value["id"]); ?></span>
                         </li>
 						<?php 
